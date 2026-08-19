@@ -2,9 +2,9 @@ DROP TABLE IF EXISTS wscpa_amnet.staging_communications;
 
 CREATE TABLE wscpa_amnet.staging_communications (
     communications_key INT PRIMARY KEY,
-    communication_dates_key VARCHAR(20),
-    begin_dates_key VARCHAR(20),
-    end_dates_key VARCHAR(20),
+    communication_dates_key CHAR(25),
+    begin_dates_key CHAR(25),
+    end_dates_key CHAR(25),
     communication_title VARCHAR(128),
     communication_description TEXT,
     communication_method_list VARCHAR(512),
