@@ -103,9 +103,3 @@ CREATE TABLE wscpa_dw.dim_Individuals
     IndividualsRowChangeReason                                                                                                                    TEXT,
     IndividualsRowStatus                                                                                                                           VARCHAR(10)
 ) ENGINE=InnoDB;
-
-CREATE INDEX IX_Individuals_IndividualID
-    ON wscpa_dw.dim_Individuals (IndividualID);
-
-CREATE INDEX IX_Individuals_MemberStatus
-    ON wscpa_dw.dim_Individuals (MemberStatus, MemberType);
