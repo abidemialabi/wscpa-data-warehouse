@@ -1,6 +1,7 @@
 SELECT
     CAST(json_data->>'$.id' AS UNSIGNED)                         AS id,
     CAST(json_data->>'$.userId' AS UNSIGNED)                     AS user_id,
+
     NULLIF(json_data->>'$.name','')                              AS name,
     NULLIF(json_data->>'$.category','')                          AS category,
     NULLIF(json_data->>'$.region','')                            AS region,
@@ -14,8 +15,15 @@ SELECT
     CAST(json_data->>'$.foo' AS SIGNED)                          AS foo,
     CAST(json_data->>'$.viewCount' AS UNSIGNED)                  AS view_count,
 
-    STR_TO_DATE(json_data->>'$.creationDate', '%Y-%m-%dT%H:%i:%s') AS creation_date,
-    STR_TO_DATE(json_data->>'$.modifiedDate', '%Y-%m-%dT%H:%i:%s') AS modified_date,
+    STR_TO_DATE(
+        json_data->>'$.creationDate',
+        '%Y-%m-%dT%H:%i:%s'
+    )                                                            AS creation_date,
+
+    STR_TO_DATE(
+        json_data->>'$.modifiedDate',
+        '%Y-%m-%dT%H:%i:%s'
+    )                                                            AS modified_date,
 
     CAST(json_data->>'$.featured' AS UNSIGNED)                   AS is_featured,
 
