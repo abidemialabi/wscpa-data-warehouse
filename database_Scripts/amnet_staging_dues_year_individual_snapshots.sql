@@ -17,7 +17,7 @@ CREATE TABLE wscpa_amnet.staging_dues_year_individual_snapshots (
     dy_billing_date VARCHAR(255),
     dy_last_invoice_date VARCHAR(255),
     dy_last_payment_date VARCHAR(255),
-    dy_dues_gross_billing DECIMAL(19,4),
+    dy_dues_gross_billing VARCHAR(100),
     dy_dues_adjustments VARCHAR(100),
     dy_dues_net_billing VARCHAR(100),
     dy_dues_gross_payments VARCHAR(100),
