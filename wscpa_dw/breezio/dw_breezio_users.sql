@@ -10,7 +10,7 @@ CREATE TABLE wscpa_dw.dw_breezio_users
     last_name                   VARCHAR(100) NULL,
     status                      VARCHAR(50) NULL,
     state                       INT UNSIGNED NULL,
-    image_path                  VARCHAR(1000) NULL,
+    image_path                  TEXT NULL,
     cv_path                     VARCHAR(500) NULL,
     is_deleted                  TINYINT UNSIGNED NULL,
     is_featured                 TINYINT UNSIGNED NULL,
@@ -43,6 +43,7 @@ CREATE TABLE wscpa_dw.dw_breezio_users
     is_private                  TINYINT UNSIGNED NULL,
     cloak_mode                  TINYINT UNSIGNED NULL,
     privacy                     VARCHAR(50) NULL,
+
     metadata_company            VARCHAR(255) NULL,
     metadata_city               VARCHAR(255) NULL,
     metadata_country            VARCHAR(255) NULL,
@@ -54,6 +55,7 @@ CREATE TABLE wscpa_dw.dw_breezio_users
     metadata_public_email       VARCHAR(255) NULL,
     metadata_nickname           VARCHAR(255) NULL,
     metadata_json               JSON NULL,
+
     timezone                    VARCHAR(100) NULL,
     user_type                   VARCHAR(50) NULL,
     membership_type             VARCHAR(100) NULL,
