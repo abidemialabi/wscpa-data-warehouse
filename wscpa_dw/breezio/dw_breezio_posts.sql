@@ -23,6 +23,7 @@ CREATE TABLE wscpa_dw.dw_breezio_posts
     hide_comments           TINYINT UNSIGNED NULL,
     version                 INT UNSIGNED NULL,
     source_id               VARCHAR(100) NULL,
+    source_json             JSON NULL,
     score                   INT NULL,
     view_count              INT UNSIGNED NULL,
     is_private              TINYINT UNSIGNED NULL,
