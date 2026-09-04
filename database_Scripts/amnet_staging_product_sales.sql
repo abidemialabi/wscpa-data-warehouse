@@ -15,7 +15,7 @@ CREATE TABLE wscpa_amnet.staging_product_sales (
     state_tax VARCHAR(100),
     local_tax VARCHAR(100),
     shipping_fee VARCHAR(100),
-    member_savings DECIMAL(19,4),
+    member_savings VARCHAR(100),
     events_key INT,
     general_ledger_accounts_key INT,
     subscription_begin_dates_key CHAR(25),
