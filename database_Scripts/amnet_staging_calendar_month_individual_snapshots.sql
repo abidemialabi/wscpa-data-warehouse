@@ -8,7 +8,7 @@ CREATE TABLE wscpa_amnet.staging_calendar_month_individual_snapshots (
     prior_dues_year_data_key INT,
     member_status_change_reasons_key INT,
     individual_id VARCHAR(20),
-    cm_age TINYINT,
+    cm_age VARCHAR(25),
     cm_age_bracket VARCHAR(32),
     cm_member_change_count INT,
     cm_member_status_change_count INT,
