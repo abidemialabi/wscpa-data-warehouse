@@ -102,6 +102,6 @@ CREATE TABLE wscpa_amnet.staging_individuals (
     last_name VARCHAR(128),
     suffix VARCHAR(64),
     salutation VARCHAR(128),
-    age INTEGER,
+    age VARCHAR(25),
     load_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
