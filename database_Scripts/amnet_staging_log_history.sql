@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS wscpa_amnet.staging_log_history;
 
 CREATE TABLE wscpa_amnet.staging_log_history (
-    contacts_key INT,
-    log_entry_types_key INT,
+    contacts_key VARCHAR(100),
+    log_entry_types_key VARCHAR(100),
     add_dates_key CHAR(25),
     follow_up_dates_key CHAR(25),
     contact_id VARCHAR(20),
