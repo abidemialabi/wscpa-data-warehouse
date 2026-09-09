@@ -47,33 +47,56 @@ BEGIN
         user_json
     )
     SELECT
-        CAST(NULLIF(json_data->>'$.id', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.userId', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.id', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        NULLIF(json_data->>'$.name', ''),
-        NULLIF(json_data->>'$.category', ''),
-        NULLIF(json_data->>'$.region', ''),
-        NULLIF(json_data->>'$.bio', ''),
-        NULLIF(json_data->>'$.billingEmail', ''),
-        NULLIF(json_data->>'$.website', ''),
-        NULLIF(json_data->>'$.imagePath', ''),
-        NULLIF(json_data->>'$.backgroundimagePath', ''),
-        NULLIF(json_data->>'$.slug', ''),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.userId', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        CAST(NULLIF(json_data->>'$.foo', '') AS SIGNED),
-        CAST(NULLIF(json_data->>'$.viewCount', '') AS UNSIGNED),
+        NULLIF(NULLIF(json_data->>'$.name', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.category', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.region', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.bio', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.billingEmail', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.website', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.imagePath', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.backgroundimagePath', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.slug', ''), 'null'),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.foo', ''), 'null')
+            AS SIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.viewCount', ''), 'null')
+            AS UNSIGNED
+        ),
 
         STR_TO_DATE(
-            LEFT(NULLIF(json_data->>'$.creationDate', ''), 19),
+            LEFT(
+                NULLIF(NULLIF(json_data->>'$.creationDate', ''), 'null'),
+                19
+            ),
             '%Y-%m-%dT%H:%i:%s'
         ),
 
         STR_TO_DATE(
-            LEFT(NULLIF(json_data->>'$.modifiedDate', ''), 19),
+            LEFT(
+                NULLIF(NULLIF(json_data->>'$.modifiedDate', ''), 'null'),
+                19
+            ),
             '%Y-%m-%dT%H:%i:%s'
         ),
 
-        CAST(NULLIF(json_data->>'$.featured', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.featured', ''), 'null')
+            AS UNSIGNED
+        ),
 
         CASE
             WHEN json_data->>'$.deleted' = 'true' THEN 1
@@ -81,17 +104,30 @@ BEGIN
             ELSE NULL
         END,
 
-        CAST(NULLIF(json_data->>'$.portalId', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.portalId', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        NULLIF(json_data->>'$.rootFolderId', ''),
+        NULLIF(NULLIF(json_data->>'$.rootFolderId', ''), 'null'),
 
-        CAST(NULLIF(json_data->>'$.private', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.private', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        NULLIF(json_data->>'$.externalId', ''),
-        NULLIF(json_data->>'$.externalId2', ''),
+        NULLIF(NULLIF(json_data->>'$.externalId', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.externalId2', ''), 'null'),
 
-        CAST(NULLIF(json_data->>'$.latestPosts', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.latestPaths', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.latestPosts', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.latestPaths', ''), 'null')
+            AS UNSIGNED
+        ),
 
         CASE
             WHEN json_data->>'$.postForceSubscription' = 'true' THEN 1
@@ -129,13 +165,13 @@ BEGIN
             ELSE NULL
         END,
 
-        NULLIF(json_data->>'$.joinRule', ''),
-        NULLIF(json_data->>'$.defaultRole', ''),
+        NULLIF(NULLIF(json_data->>'$.joinRule', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.defaultRole', ''), 'null'),
 
         JSON_EXTRACT(json_data, '$.config'),
 
-        json_data->>'$.type',
-        json_data->>'$._entityName',
+        NULLIF(json_data->>'$.type', 'null'),
+        NULLIF(json_data->>'$._entityName', 'null'),
 
         JSON_EXTRACT(json_data, '$.user')
 
