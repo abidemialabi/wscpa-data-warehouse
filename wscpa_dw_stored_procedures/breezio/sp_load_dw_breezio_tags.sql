@@ -28,23 +28,36 @@ BEGIN
         user_json
     )
     SELECT
-        CAST(NULLIF(json_data->>'$.id', '') AS UNSIGNED),
 
-        CAST(NULLIF(json_data->>'$.userId', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.id', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        NULLIF(json_data->>'$.name', ''),
-        NULLIF(json_data->>'$.slug', ''),
-        NULLIF(json_data->>'$.imagePath', ''),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.userId', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        json_data->>'$.tagType',
+        NULLIF(NULLIF(json_data->>'$.name', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.slug', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.imagePath', ''), 'null'),
+
+        NULLIF(json_data->>'$.tagType', 'null'),
 
         STR_TO_DATE(
-            LEFT(NULLIF(json_data->>'$.creationDate', ''), 19),
+            LEFT(
+                NULLIF(NULLIF(json_data->>'$.creationDate', ''), 'null'),
+                19
+            ),
             '%Y-%m-%dT%H:%i:%s'
         ),
 
         STR_TO_DATE(
-            LEFT(NULLIF(json_data->>'$.modifiedDate', ''), 19),
+            LEFT(
+                NULLIF(NULLIF(json_data->>'$.modifiedDate', ''), 'null'),
+                19
+            ),
             '%Y-%m-%dT%H:%i:%s'
         ),
 
@@ -54,18 +67,33 @@ BEGIN
             ELSE NULL
         END,
 
-        CAST(NULLIF(json_data->>'$.featured', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.featured', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        CAST(NULLIF(json_data->>'$.itemsCount', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.itemsCount', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        CAST(NULLIF(json_data->>'$.priority', '') AS SIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.priority', ''), 'null')
+            AS SIGNED
+        ),
 
-        CAST(NULLIF(json_data->>'$.portalId', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.portalId', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        CAST(NULLIF(json_data->>'$.organizationId', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.organizationId', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        json_data->>'$.type',
-        json_data->>'$._entityName',
+        NULLIF(json_data->>'$.type', 'null'),
+        NULLIF(json_data->>'$._entityName', 'null'),
 
         JSON_EXTRACT(json_data, '$.user')
 
