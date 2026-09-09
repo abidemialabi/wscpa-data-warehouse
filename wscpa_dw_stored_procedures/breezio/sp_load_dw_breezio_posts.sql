@@ -59,44 +59,68 @@ BEGIN
         date_type
     )
     SELECT
-        CAST(NULLIF(json_data->>'$.id', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.userId', '') AS UNSIGNED),
-        NULLIF(json_data->>'$.rootFolderId', ''),
 
-        NULLIF(json_data->>'$.title', ''),
-        NULLIF(json_data->>'$.slug', ''),
-        NULLIF(json_data->>'$.subtitle', ''),
-        NULLIF(json_data->>'$.postType', ''),
-        NULLIF(json_data->>'$.format', ''),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.id', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.userId', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        NULLIF(NULLIF(json_data->>'$.rootFolderId', ''), 'null'),
+
+        NULLIF(NULLIF(json_data->>'$.title', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.slug', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.subtitle', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.postType', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.format', ''), 'null'),
 
         JSON_EXTRACT(json_data, '$.content'),
 
         STR_TO_DATE(
-            LEFT(NULLIF(json_data->>'$.creationDate', ''), 19),
+            LEFT(
+                NULLIF(NULLIF(json_data->>'$.creationDate', ''), 'null'),
+                19
+            ),
             '%Y-%m-%dT%H:%i:%s'
         ),
 
         STR_TO_DATE(
-            LEFT(NULLIF(json_data->>'$.modifiedDate', ''), 19),
+            LEFT(
+                NULLIF(NULLIF(json_data->>'$.modifiedDate', ''), 'null'),
+                19
+            ),
             '%Y-%m-%dT%H:%i:%s'
         ),
 
         STR_TO_DATE(
-            LEFT(NULLIF(json_data->>'$.publishDate', ''), 19),
+            LEFT(
+                NULLIF(NULLIF(json_data->>'$.publishDate', ''), 'null'),
+                19
+            ),
             '%Y-%m-%dT%H:%i:%s'
         ),
 
         STR_TO_DATE(
-            LEFT(NULLIF(json_data->>'$.lastActivityDate', ''), 19),
+            LEFT(
+                NULLIF(NULLIF(json_data->>'$.lastActivityDate', ''), 'null'),
+                19
+            ),
             '%Y-%m-%dT%H:%i:%s'
         ),
 
         STR_TO_DATE(
-            LEFT(NULLIF(json_data->>'$.lastConferenceDate', ''), 19),
+            LEFT(
+                NULLIF(NULLIF(json_data->>'$.lastConferenceDate', ''), 'null'),
+                19
+            ),
             '%Y-%m-%dT%H:%i:%s'
         ),
 
-        NULLIF(json_data->>'$.status', ''),
+        NULLIF(NULLIF(json_data->>'$.status', ''), 'null'),
 
         CASE
             WHEN json_data->>'$.deleted' = 'true' THEN 1
@@ -104,16 +128,39 @@ BEGIN
             ELSE NULL
         END,
 
-        CAST(NULLIF(json_data->>'$.featured', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.orgFeatured', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.hideComments', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.version', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.featured', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        NULLIF(json_data->>'$.sourceId', ''),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.orgFeatured', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.hideComments', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.version', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        NULLIF(NULLIF(json_data->>'$.sourceId', ''), 'null'),
+
         JSON_EXTRACT(json_data, '$.source'),
 
-        CAST(NULLIF(json_data->>'$.score', '') AS SIGNED),
-        CAST(NULLIF(json_data->>'$.viewCount', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.score', ''), 'null')
+            AS SIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.viewCount', ''), 'null')
+            AS UNSIGNED
+        ),
 
         CASE
             WHEN json_data->>'$.private' = 'true' THEN 1
@@ -121,31 +168,63 @@ BEGIN
             ELSE NULL
         END,
 
-        CAST(NULLIF(json_data->>'$.organizationId', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.notesCount', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.organizationId', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.notesCount', ''), 'null')
+            AS UNSIGNED
+        ),
 
         JSON_EXTRACT(json_data, '$.metadata'),
 
-        CAST(NULLIF(json_data->>'$.voteScore', '') AS SIGNED),
-        CAST(NULLIF(json_data->>'$.posterId', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.portalId', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.voteScore', ''), 'null')
+            AS SIGNED
+        ),
 
-        NULLIF(json_data->>'$.externalId', ''),
-        NULLIF(json_data->>'$.imagePath', ''),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.posterId', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.portalId', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        NULLIF(NULLIF(json_data->>'$.externalId', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.imagePath', ''), 'null'),
 
         JSON_EXTRACT(json_data, '$.info'),
 
-        CAST(NULLIF(json_data->>'$.onlyPathAccessible', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.uniqueViewCount', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.onlyPathAccessible', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        CAST(NULLIF(json_data->>'$.price', '') AS DECIMAL(18,2)),
-        CAST(NULLIF(json_data->>'$.purchaseCount', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.uniqueViewCount', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        NULLIF(json_data->>'$.postHash', ''),
-        NULLIF(json_data->>'$.commentsMode', ''),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.price', ''), 'null')
+            AS DECIMAL(18,2)
+        ),
 
-        json_data->>'$.type',
-        json_data->>'$._entityName',
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.purchaseCount', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        NULLIF(NULLIF(json_data->>'$.postHash', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.commentsMode', ''), 'null'),
+
+        NULLIF(json_data->>'$.type', 'null'),
+        NULLIF(json_data->>'$._entityName', 'null'),
 
         JSON_EXTRACT(json_data, '$.tagsConnected'),
         JSON_EXTRACT(json_data, '$.user'),
@@ -158,8 +237,8 @@ BEGIN
 
         JSON_EXTRACT(json_data, '$.organization'),
 
-        NULLIF(json_data->>'$._displayDate', ''),
-        NULLIF(json_data->>'$._dateType', '')
+        NULLIF(NULLIF(json_data->>'$._displayDate', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$._dateType', ''), 'null')
 
     FROM wscpa_breezio.staging_posts;
 
