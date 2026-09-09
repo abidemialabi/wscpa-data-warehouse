@@ -81,118 +81,236 @@ BEGIN
         entity_name
     )
     SELECT
-        CAST(NULLIF(json_data->>'$.id', '') AS UNSIGNED),
-        NULLIF(json_data->>'$.unverifiedEmail', ''),
-        json_data->>'$.username',
-        json_data->>'$.role',
-        json_data->>'$.firstName',
-        json_data->>'$.lastName',
-        json_data->>'$.status',
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.id', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        CAST(NULLIF(json_data->>'$.state', '') AS UNSIGNED),
+        NULLIF(NULLIF(json_data->>'$.unverifiedEmail', ''), 'null'),
+        NULLIF(json_data->>'$.username', 'null'),
+        NULLIF(json_data->>'$.role', 'null'),
+        NULLIF(json_data->>'$.firstName', 'null'),
+        NULLIF(json_data->>'$.lastName', 'null'),
+        NULLIF(json_data->>'$.status', 'null'),
 
-        json_data->>'$.imagePath',
-        NULLIF(json_data->>'$.cvPath', ''),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.state', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        CAST(NULLIF(json_data->>'$.deleted', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.featured', '') AS UNSIGNED),
+        NULLIF(json_data->>'$.imagePath', 'null'),
+        NULLIF(NULLIF(json_data->>'$.cvPath', ''), 'null'),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.deleted', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.featured', ''), 'null')
+            AS UNSIGNED
+        ),
 
         STR_TO_DATE(
-            NULLIF(json_data->>'$.birthdate', ''),
+            NULLIF(NULLIF(json_data->>'$.birthdate', ''), 'null'),
             '%Y-%m-%d'
         ),
 
         STR_TO_DATE(
-            LEFT(NULLIF(json_data->>'$.creationDate', ''), 19),
+            LEFT(
+                NULLIF(NULLIF(json_data->>'$.creationDate', ''), 'null'),
+                19
+            ),
             '%Y-%m-%dT%H:%i:%s'
         ),
 
-        CAST(NULLIF(json_data->>'$.lastModifiedBy', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.lastModifiedBy', ''), 'null')
+            AS UNSIGNED
+        ),
 
         STR_TO_DATE(
-            LEFT(NULLIF(json_data->>'$.modifiedDate', ''), 19),
+            LEFT(
+                NULLIF(NULLIF(json_data->>'$.modifiedDate', ''), 'null'),
+                19
+            ),
             '%Y-%m-%dT%H:%i:%s'
         ),
 
-        NULLIF(json_data->>'$.bio', ''),
-        NULLIF(json_data->>'$.shortBio', ''),
-        NULLIF(json_data->>'$.gender', ''),
-        NULLIF(json_data->>'$.website', ''),
-        NULLIF(json_data->>'$.officeHours', ''),
+        NULLIF(NULLIF(json_data->>'$.bio', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.shortBio', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.gender', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.website', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.officeHours', ''), 'null'),
 
-        CAST(NULLIF(json_data->>'$.viewCount', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.postsCount', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.commentsCount', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.votesCount', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.viewCount', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        CAST(NULLIF(json_data->>'$.score', '') AS SIGNED),
-        CAST(NULLIF(json_data->>'$.foo', '') AS SIGNED),
-        CAST(NULLIF(json_data->>'$.bar', '') AS SIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.postsCount', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        json_data->>'$.activeKey',
-        NULLIF(json_data->>'$.title', ''),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.commentsCount', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        CAST(NULLIF(json_data->>'$.version', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.invitedBy', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.invitedCount', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.portalId', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.originalPortalId', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.externalId', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.externalId2', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.votesCount', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        json_data->>'$.rootFolderId',
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.score', ''), 'null')
+            AS SIGNED
+        ),
 
-        CAST(NULLIF(json_data->>'$.private', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.cloakMode', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.foo', ''), 'null')
+            AS SIGNED
+        ),
 
-        json_data->>'$.privacy',
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.bar', ''), 'null')
+            AS SIGNED
+        ),
 
-        NULLIF(json_data->>'$.metadata.company', ''),
-        NULLIF(json_data->>'$.metadata.city', ''),
-        NULLIF(json_data->>'$.metadata.country', ''),
-        NULLIF(json_data->>'$.metadata.phone', ''),
-        NULLIF(json_data->>'$.metadata.twitter', ''),
-        NULLIF(json_data->>'$.metadata.facebook', ''),
-        NULLIF(json_data->>'$.metadata.linkedin', ''),
-        NULLIF(json_data->>'$.metadata.instagram', ''),
-        NULLIF(json_data->>'$.metadata.publicEmail', ''),
-        NULLIF(json_data->>'$.metadata.nickname', ''),
+        NULLIF(json_data->>'$.activeKey', 'null'),
+        NULLIF(NULLIF(json_data->>'$.title', ''), 'null'),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.version', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.invitedBy', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.invitedCount', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.portalId', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.originalPortalId', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.externalId', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.externalId2', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        NULLIF(json_data->>'$.rootFolderId', 'null'),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.private', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.cloakMode', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        NULLIF(json_data->>'$.privacy', 'null'),
+
+        NULLIF(NULLIF(json_data->>'$.metadata.company', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.metadata.city', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.metadata.country', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.metadata.phone', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.metadata.twitter', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.metadata.facebook', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.metadata.linkedin', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.metadata.instagram', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.metadata.publicEmail', ''), 'null'),
+        NULLIF(NULLIF(json_data->>'$.metadata.nickname', ''), 'null'),
 
         JSON_EXTRACT(json_data, '$.metadata'),
 
-        json_data->>'$.timezone',
-        json_data->>'$.userType',
-        json_data->>'$.membershipType',
+        NULLIF(json_data->>'$.timezone', 'null'),
+        NULLIF(json_data->>'$.userType', 'null'),
+        NULLIF(json_data->>'$.membershipType', 'null'),
 
         STR_TO_DATE(
-            LEFT(NULLIF(json_data->>'$.lastFetchDate', ''), 19),
+            LEFT(
+                NULLIF(NULLIF(json_data->>'$.lastFetchDate', ''), 'null'),
+                19
+            ),
             '%Y-%m-%dT%H:%i:%s'
         ),
 
         STR_TO_DATE(
-            LEFT(NULLIF(json_data->>'$.lastSeenDate', ''), 19),
+            LEFT(
+                NULLIF(NULLIF(json_data->>'$.lastSeenDate', ''), 'null'),
+                19
+            ),
             '%Y-%m-%dT%H:%i:%s'
         ),
 
-        CAST(NULLIF(json_data->>'$.followersCount', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.followingsCount', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.isActive', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.hardDeleted', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.syncRequired', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.followersCount', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.followingsCount', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.isActive', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.hardDeleted', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.syncRequired', ''), 'null')
+            AS UNSIGNED
+        ),
 
         STR_TO_DATE(
-            LEFT(NULLIF(json_data->>'$.lastSyncDate', ''), 19),
+            LEFT(
+                NULLIF(NULLIF(json_data->>'$.lastSyncDate', ''), 'null'),
+                19
+            ),
             '%Y-%m-%dT%H:%i:%s'
         ),
 
-        CAST(NULLIF(json_data->>'$.lastSyncBy', '') AS UNSIGNED),
-        CAST(NULLIF(json_data->>'$.suspended', '') AS UNSIGNED),
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.lastSyncBy', ''), 'null')
+            AS UNSIGNED
+        ),
 
-        NULLIF(json_data->>'$.alternateEmail', ''),
-        json_data->>'$.hash',
-        json_data->>'$.user_email',
-        json_data->>'$.type',
-        json_data->>'$._entityName'
+        CAST(
+            NULLIF(NULLIF(json_data->>'$.suspended', ''), 'null')
+            AS UNSIGNED
+        ),
+
+        NULLIF(NULLIF(json_data->>'$.alternateEmail', ''), 'null'),
+        NULLIF(json_data->>'$.hash', 'null'),
+        NULLIF(json_data->>'$.user_email', 'null'),
+        NULLIF(json_data->>'$.type', 'null'),
+        NULLIF(json_data->>'$._entityName', 'null')
 
     FROM wscpa_breezio.staging_users;
 
