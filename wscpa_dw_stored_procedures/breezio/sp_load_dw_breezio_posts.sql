@@ -11,6 +11,9 @@ BEGIN
     (
         id,
         user_id,
+        user_email,
+        user_username,
+        user_external_id,
         root_folder_id,
         title,
         slug,
@@ -68,6 +71,21 @@ BEGIN
         CAST(
             NULLIF(NULLIF(json_data->>'$.userId', ''), 'null')
             AS UNSIGNED
+        ),
+
+        NULLIF(
+            NULLIF(json_data->>'$.user.user_email', ''),
+            'null'
+        ),
+
+        NULLIF(
+            NULLIF(json_data->>'$.user.username', ''),
+            'null'
+        ),
+
+        NULLIF(
+            NULLIF(json_data->>'$.user.externalId', ''),
+            'null'
         ),
 
         NULLIF(NULLIF(json_data->>'$.rootFolderId', ''), 'null'),
