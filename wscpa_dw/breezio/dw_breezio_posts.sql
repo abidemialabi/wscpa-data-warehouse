@@ -4,6 +4,9 @@ CREATE TABLE wscpa_dw.dw_breezio_posts
 (
     id                      BIGINT UNSIGNED NOT NULL,
     user_id                 BIGINT UNSIGNED NULL,
+    user_email               VARCHAR(255) NULL,
+    user_username            VARCHAR(255) NULL,
+    user_external_id         VARCHAR(255) NULL,
     root_folder_id          VARCHAR(100) NULL,
     title                   TEXT NULL,
     slug                    VARCHAR(500) NULL,
