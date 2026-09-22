@@ -1,0 +1,25 @@
+-- Create table for member event activity
+CREATE TABLE IF NOT EXISTS wscpa_dw.dw_member_events (
+    individuals_key              VARCHAR(20) NOT NULL,
+    individual_id                VARCHAR(20) NULL,
+    full_name                    VARCHAR(255) NULL,
+    events_key                   INT NOT NULL,
+    event_name                   VARCHAR(512) NULL,
+    registration_date            DATE NULL,
+    cancellation_date            VARCHAR(255) NULL,
+    event_begin_date             DATE NULL,
+    event_end_date               DATE NULL,
+    completion_date              DATE NULL,
+    registration_statuses_key    INT NULL,
+    event_status                 VARCHAR(64) NULL,
+    event_division               VARCHAR(128) NULL,
+    event_fields_of_study_list   VARCHAR(512) NULL,
+    event_topics_list            VARCHAR(512) NULL,
+    event_level                  VARCHAR(64) NULL,
+    event_city                   VARCHAR(128) NULL,
+    event_has_sessions_yn        VARCHAR(25) NULL,
+    load_ts                      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (individuals_key, events_key),
+    INDEX ix_dw_member_events_individual_id (individual_id),
+    INDEX ix_dw_member_events_event_begin_date (event_begin_date)
+) ENGINE=InnoDB;
