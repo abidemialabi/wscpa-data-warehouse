@@ -1,8 +1,11 @@
 -- Create table for consolidated member summary
 CREATE TABLE IF NOT EXISTS wscpa_dw.dw_member_summary (
   member_email VARCHAR(255) NOT NULL,
+  individual_id VARCHAR(20) DEFAULT NULL,
   individuals_row_effective_date VARCHAR(50) DEFAULT NULL,
   full_name VARCHAR(255) DEFAULT NULL,
+  position_code VARCHAR(128) DEFAULT NULL,
+  position_description VARCHAR(255) DEFAULT NULL,
   member_status VARCHAR(100) DEFAULT NULL,
   member_type VARCHAR(100) DEFAULT NULL,
   license_status VARCHAR(100) DEFAULT NULL,
@@ -15,6 +18,7 @@ CREATE TABLE IF NOT EXISTS wscpa_dw.dw_member_summary (
   fields_of_interest_list TEXT DEFAULT NULL,
   areas_of_expertise_list TEXT DEFAULT NULL,
   firm_name VARCHAR(255) DEFAULT NULL,
+  firm_pays_dues_yn VARCHAR(10) DEFAULT NULL,
   general_business_type VARCHAR(100) DEFAULT NULL,
   specific_business_type VARCHAR(100) DEFAULT NULL,
   entity_type VARCHAR(100) DEFAULT NULL,
