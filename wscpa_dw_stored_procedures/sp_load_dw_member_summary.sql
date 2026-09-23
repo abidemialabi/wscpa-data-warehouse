@@ -5,10 +5,11 @@ DELIMITER $$
 
 CREATE PROCEDURE wscpa_dw.sp_load_dw_member_summary()
 BEGIN
-    INSERT INTO wscpa_dw.dw_member_summary (
-        member_email, individuals_row_effective_date, full_name, member_status, member_type,
+        INSERT INTO wscpa_dw.dw_member_summary (
+        member_email, individual_id, individuals_row_effective_date, full_name, position_code, position_description,
+        member_status, member_type,
         license_status, certification_status, joined_date, reinstatement_date, termination_date,
-        email_opt_in, email_opt_out, fields_of_interest_list, areas_of_expertise_list, firm_name,
+        email_opt_in, email_opt_out, fields_of_interest_list, areas_of_expertise_list, firm_name, firm_pays_dues_yn,
         general_business_type, specific_business_type, entity_type, preferred_address, preferred_city,
         preferred_state, preferred_zip, home_phone, renewal_date, dues_balance,
         last_invoice_date, last_payment_date, consecutive_years_of_membership, cumulative_years_of_membership,
@@ -62,9 +63,11 @@ BEGIN
   member_base AS (
     SELECT DISTINCT
         LOWER(TRIM(i.email_address)) AS member_email,
-        i.individual_id,
+         i.individual_id,
         i.individuals_row_effective_date,
         i.full_name,
+        i.position_code,
+        i.position_description,
         i.member_status,
         i.member_type,
         i.license_status,
@@ -100,6 +103,7 @@ BEGIN
         i.preferred_state,
         i.preferred_zip,
         f.firm_name,
+        f.firm_pays_dues_yn,
         f.general_business_type,
         f.specific_business_type,
         f.entity_type,
@@ -298,9 +302,12 @@ BEGIN
 	(
     SELECT DISTINCT
 		b.member_email,
-		b.individuals_row_effective_date,
-		b.full_name,
-		b.member_status,
+        b.individual_id,
+        b.individuals_row_effective_date,
+        b.full_name,
+        b.position_code,
+        b.position_description,
+        b.member_status,
 		b.member_type,
 		b.license_status,
 		b.certification_status,
@@ -312,7 +319,8 @@ BEGIN
 		b.fields_of_interest_list,
 		b.areas_of_expertise_list,
 		b.firm_name,
-		b.general_business_type,
+        b.firm_pays_dues_yn,
+        b.general_business_type,
 		b.specific_business_type,
 		b.entity_type,
 		b.preferred_address,
@@ -416,8 +424,11 @@ BEGIN
 	) AS src
 
     ON DUPLICATE KEY UPDATE
+        individual_id = src.individual_id,
         individuals_row_effective_date = src.individuals_row_effective_date,
         full_name = src.full_name,
+        position_code = src.position_code,
+        position_description = src.position_description,
         member_status = src.member_status,
         member_type = src.member_type,
         license_status = src.license_status,
@@ -430,6 +441,7 @@ BEGIN
         fields_of_interest_list = src.fields_of_interest_list,
         areas_of_expertise_list = src.areas_of_expertise_list,
         firm_name = src.firm_name,
+        firm_pays_dues_yn = src.firm_pays_dues_yn,
         general_business_type = src.general_business_type,
         specific_business_type = src.specific_business_type,
         entity_type = src.entity_type,
