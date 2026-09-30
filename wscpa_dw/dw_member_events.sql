@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS wscpa_dw.dw_member_events (
     event_end_date               DATE NULL,
     completion_date              DATE NULL,
     registration_statuses_key    INT NULL,
+    credit_hours_earned_at_event DECIMAL(5,2) NULL,
     event_status                 VARCHAR(64) NULL,
     event_division               VARCHAR(128) NULL,
     event_fields_of_study_list   VARCHAR(512) NULL,
