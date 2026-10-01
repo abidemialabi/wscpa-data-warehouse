@@ -83,7 +83,7 @@ BEGIN
             0 AS post_comments_total,
             0 AS post_votes_total,
             0 AS post_followers_total,
-            COUNT(*) * 2.5 AS community_score,
+            COUNT(*) * 10 AS community_score,
             'hill_day' AS community_type
         FROM wscpa_dw.dw_member_events me
         WHERE me.event_division = 'Special Events'
@@ -92,9 +92,9 @@ BEGIN
         GROUP BY me.individuals_key, me.individual_id
     ),
     non_cpe_event_points_map AS (
-        SELECT 'Networking Event' AS event_division, 'Networking or social event' AS community_type, 2.5 AS points
-        UNION ALL SELECT 'Conference (Group Live)', 'In-person conference', 2.5
-        UNION ALL SELECT 'Committees', 'Non CPE event', 2.5
+        SELECT 'Networking Event' AS event_division, 'Networking or social event' AS community_type, 10 AS points
+        UNION ALL SELECT 'Conference (Group Live)', 'In-person conference', 10
+        UNION ALL SELECT 'Committees', 'Non CPE event', 10
     ),
     member_non_cpe_events AS (
         SELECT
