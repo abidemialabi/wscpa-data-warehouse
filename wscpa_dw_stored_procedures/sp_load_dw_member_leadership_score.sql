@@ -1,8 +1,6 @@
 -- Stored procedure to upsert member leadership score data
 DROP PROCEDURE IF EXISTS wscpa_dw.sp_load_dw_member_leadership_score;
 
-DELIMITER $$
-
 CREATE PROCEDURE wscpa_dw.sp_load_dw_member_leadership_score()
 BEGIN
     INSERT INTO wscpa_dw.dw_member_leadership_score (
@@ -99,12 +97,9 @@ BEGIN
         leadership_metric,
         leadership_score,
         CURRENT_TIMESTAMP AS load_ts
-    FROM final_scores;
-
+    FROM final_scores
     ON DUPLICATE KEY UPDATE
         leadership_score = VALUES(leadership_score),
         load_ts = CURRENT_TIMESTAMP;
 
-END$$
-
-DELIMITER ;
+END;

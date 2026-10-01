@@ -104,5 +104,7 @@ CREATE TABLE wscpa_amnet.staging_individuals (
     suffix VARCHAR(64),
     salutation VARCHAR(128),
     age VARCHAR(25),
-    load_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    load_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_staging_individuals_email_address (email_address),
+    INDEX idx_staging_individuals_individual_id (individual_id)
 );

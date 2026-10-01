@@ -1,17 +1,14 @@
 WITH event_division_points_map AS (
-    SELECT 'Webcast (Group Internet Based)' AS event_division, 'CPE Learning event' AS event_type_category, 2.5 AS points
-    UNION ALL SELECT 'Conference (Group Internet Based)', 'CPE Learning event', 2.5
-    UNION ALL SELECT 'Webinar (Group Internet Based)', 'CPE Learning event', 2.5
-    UNION ALL SELECT 'Seminar (Group Live)', 'CPE Learning event', 2.5
-    UNION ALL SELECT 'Networking Event', 'Networking or social event', 10
-    UNION ALL SELECT 'In-House Training', 'CPE Learning event', 2.5
-    UNION ALL SELECT 'Chapter Event (Group Live)', 'CPE Learning event', 2.5
-    UNION ALL SELECT 'Conference (Group Live)', 'In-person conference', 10
-    UNION ALL SELECT 'Self Study', 'CPE Learning event', 2.5
-    UNION ALL SELECT 'Resource Group (Group Internet)', 'CPE Learning event', 2.5
-    UNION ALL SELECT 'Committees (Group Internet)', 'CPE Learning event', 2.5
-    UNION ALL SELECT 'Flexcast', 'CPE Learning event', 2.5
-    UNION ALL SELECT 'Committees', 'Non CPE event.', 2.5
+    SELECT 'Webcast (Group Internet Based)' AS event_division, 'CPE Learning event' AS event_type_category
+    UNION ALL SELECT 'Conference (Group Internet Based)', 'CPE Learning event'
+    UNION ALL SELECT 'Webinar (Group Internet Based)', 'CPE Learning event'
+    UNION ALL SELECT 'Seminar (Group Live)', 'CPE Learning event'
+    UNION ALL SELECT 'In-House Training', 'CPE Learning event'
+    UNION ALL SELECT 'Chapter Event (Group Live)', 'CPE Learning event'
+    UNION ALL SELECT 'Self Study', 'CPE Learning event'
+    UNION ALL SELECT 'Resource Group (Group Internet)', 'CPE Learning event'
+    UNION ALL SELECT 'Committees (Group Internet)', 'CPE Learning event'
+    UNION ALL SELECT 'Flexcast', 'CPE Learning event'
 )
 SELECT
     me.individuals_key,
@@ -22,15 +19,15 @@ SELECT
     me.event_begin_date,
     me.event_division,
     me.event_status,
+    me.credit_hours_earned_at_event,
     rs.registration_status,
     CASE
-        WHEN LOWER(me.event_name) LIKE '%cohort%' THEN 'Cohort event'
         WHEN map.event_type_category IS NOT NULL THEN map.event_type_category
         ELSE 'Unmapped'
     END AS event_type_category,
     CASE
-        WHEN LOWER(me.event_name) LIKE '%cohort%' THEN 10
-        ELSE COALESCE(map.points, 0)
+        WHEN map.event_type_category IS NOT NULL THEN COALESCE(me.credit_hours_earned_at_event, 0) * 2.5
+        ELSE 0
     END AS member_education_score
 FROM wscpa_dw.dw_member_events me
 LEFT JOIN wscpa_amnet.staging_registration_statuses rs
@@ -40,6 +37,7 @@ LEFT JOIN event_division_points_map map
 WHERE
     me.event_begin_date >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)
     AND me.event_begin_date <= CURDATE()
+    AND map.event_type_category = 'CPE Learning event'
 ORDER BY
     me.event_begin_date DESC,
     me.individuals_key,

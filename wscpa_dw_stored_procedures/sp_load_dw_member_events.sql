@@ -1,8 +1,6 @@
 -- Stored procedure to upsert member event data
 DROP PROCEDURE IF EXISTS wscpa_dw.sp_load_dw_member_events;
 
-DELIMITER $$
-
 CREATE PROCEDURE wscpa_dw.sp_load_dw_member_events()
 BEGIN
 
@@ -99,6 +97,4 @@ BEGIN
         event_has_sessions_yn = src.event_has_sessions_yn,
         load_ts = src.load_ts;
 
-END$$
-
-DELIMITER ;
+END;

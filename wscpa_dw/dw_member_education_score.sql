@@ -1,7 +1,7 @@
 -- Create table for member education score
 CREATE TABLE IF NOT EXISTS wscpa_dw.dw_member_education_score (
     individuals_key              VARCHAR(20) NOT NULL,
-    individual_id                VARCHAR(20) NULL,
+    individual_id                VARCHAR(20) NOT NULL,
     event_type_category         VARCHAR(128) NOT NULL,
     member_education_score       DECIMAL(10,2) NOT NULL DEFAULT 0,
     load_ts                      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
