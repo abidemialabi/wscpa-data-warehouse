@@ -1,6 +1,6 @@
 -- Stored procedure to upsert consolidated firm summary
 DROP PROCEDURE IF EXISTS wscpa_dw.sp_load_dw_firm_summary;
-DELIMITER $$
+
 CREATE PROCEDURE wscpa_dw.sp_load_dw_firm_summary()
 BEGIN
   INSERT INTO wscpa_dw.dw_firm_summary (
@@ -347,5 +347,4 @@ BEGIN
     total_engagement_log_activity = src.total_engagement_log_activity,
     load_ts = src.load_ts;
 
-END$$
-DELIMITER ;
+END;

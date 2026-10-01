@@ -1,8 +1,6 @@
 -- Stored procedure to upsert consolidated member summary
 DROP PROCEDURE IF EXISTS wscpa_dw.sp_load_dw_member_summary;
 
-DELIMITER $$
-
 CREATE PROCEDURE wscpa_dw.sp_load_dw_member_summary()
 BEGIN
         INSERT INTO wscpa_dw.dw_member_summary (
@@ -511,6 +509,4 @@ BEGIN
         total_followers = src.total_followers,
         load_ts = src.load_ts;
 
-END$$
-
-DELIMITER;
+END;

@@ -1,8 +1,6 @@
 -- Stored procedure to upsert member committee data
 DROP PROCEDURE IF EXISTS wscpa_dw.sp_load_dw_member_committees;
 
-DELIMITER $$
-
 CREATE PROCEDURE wscpa_dw.sp_load_dw_member_committees()
 BEGIN
 
@@ -71,6 +69,4 @@ BEGIN
         committee_position = src.committee_position,
         load_ts = src.load_ts;
 
-END$$
-
-DELIMITER ;
+END;
